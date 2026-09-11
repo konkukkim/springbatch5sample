@@ -1,0 +1,30 @@
+package kr.co.wlife.fac.jhb.batch.step;
+
+import kr.co.wlife.fac.jhb.batch.tasklet.PrintHelloTasklet;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
+
+@Configuration
+public class PrintHelloStepConfig {
+	//private final JdbcTemplate jdbcTemplate;
+
+	@Bean
+	public Step printHelloStep(JobRepository jobRepository, PlatformTransactionManager transactionManager, Tasklet printHelloTasklet) {
+		return new StepBuilder("step", jobRepository)
+				.tasklet(printHelloTasklet, transactionManager)
+				.build();
+	}
+
+	@Bean
+	@StepScope
+	public Tasklet printHelloTasklet(JdbcTemplate jdbcTemplate) {
+		return new PrintHelloTasklet(jdbcTemplate);
+	}
+}

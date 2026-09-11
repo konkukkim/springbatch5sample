@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.wlife.fac.jhb.batch.mapper.TestMapper">
+
+    <select id="findAllTestItems" resultType="kr.co.wlife.fac.jhb.batch.bean.item.TestItem">
+        SELECT col1 FROM t_test1
+    </select>
+
+    <insert id="insertTestItem">
+        INSERT INTO t_test2 (col1, processed_at)
+        VALUES (#{item.col1}, now())
+    </insert>
+
+</mapper>
